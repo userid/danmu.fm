@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import re
 from .douyu_danmu_client import DouyuDanmuClient
@@ -14,7 +15,7 @@ class DouyuClient:
             url = self.DOUYU_PREFIX + url
         html = urlopen(url).read().decode()
         room_info_json = re.search('var\s\$ROOM\s=\s({.*})', html).group(1)
-        auth_server_json = re.search('var\sroom_args\s=\s({.*})', html).group(1)
+        auth_server_json = re.search('\$ROOM.args\s=\s({.*})', html).group(1)
         room_info_json_format = valid_json(room_info_json)
         auth_server_json_format = valid_json(auth_server_json)
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import re
 import uuid
@@ -146,6 +147,15 @@ class DouyuDanmuClient(object):
                     level = re.search('\/level:(.+?)\/', msg_content).group(1)
                     time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     ColorPrinter.green("|" + msg_type_zh + "| " + self.align_left_str(nickname,20," ") + self.align_left_str("<Lv:" + level + ">",8," ") + self.align_left_str("("+ sender_id +")",13," ") + self.align_left_str("["+strength+"]",10," ") + "@ "+time+": " + content +" ")
+                elif  msg_type == "chatmsg":
+                    msg_type_zh = "弹幕消息"
+                    sender_id = re.search('\/uid:(.+?)\/', msg_content).group(1)
+                    nickname = re.search('\/nn:(.+?)\/', msg_content).group(1)
+                    content = re.search('\/txt:(.+?)\/', msg_content).group(1)
+                    strength = "%d" % len(content)
+                    level = re.search('\/level:(.+?)\/', msg_content).group(1)
+                    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    ColorPrinter.green("|" + msg_type_zh + "| " + self.align_left_str(nickname,20," ") + self.align_left_str("<Lv:" + level + ">",8," ")  + content +" ")
 
                 elif msg_type == "userenter":
                     msg_type_zh = "入房消息"
